@@ -12,21 +12,21 @@
 - ours (iterative, checkL2norm on 768d vectors)
 - Implement and run DRAE and class filtering on Food, Clothing, Text (Waseem, Synthetic) datasets
 
-## Envs
+## Environments
 
 - cleannet/avgbaseline
-tf16: conda install -c conda-forge tensorflow=1.6.0
+```tf16: conda install -c conda-forge tensorflow=1.6.0```
 
 - bertfinetuning
-bert: pytorch env
+```bert: pytorch env```
 
 - noiserank
-faiss: conda install faiss-gpu cudatoolkit=9.0 -c pytorch # For CUDA9
+```faiss: conda install faiss-gpu cudatoolkit=9.0 -c pytorch # For CUDA9```
 
 - general
-conda env remove -n faiss
+```conda env remove -n faiss
 conda create -n faiss python=3.6 
-python -m ipykernel install --user --name faiss
+python -m ipykernel install --user --name faiss```
 
-- waseem dataset
-label_map = {'racism':0, 'sexism':1, 'both':2, 'neither':3}
+## Datasets
+- waseem dataset (label_map = {'racism':0, 'sexism':1, 'both':2, 'neither':3})
