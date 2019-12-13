@@ -1,6 +1,3 @@
-# Hymenoptera dataset runs 
-python resnet_featext.py --batch_size=64 --num_epochs=5 --data_dir='../datasets/hymenoptera_data' --img_dir='train' --model_dir='../trained_models/hymenoptera_last' --opt='sgd' --lr=0.001 --momentum=0.9 --gamma=0.1 --stepsize=7 --resnet=50
-
 # Food dataset runs (feature extraction, avg, cleannet, repeat once)
      
 A) train acc = models saved at each epoch
