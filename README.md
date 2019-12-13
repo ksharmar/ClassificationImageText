@@ -24,9 +24,11 @@
 ```faiss: conda install faiss-gpu cudatoolkit=9.0 -c pytorch # For CUDA9```
 
 - general
-```conda env remove -n faiss
+```
+conda env remove -n faiss
 conda create -n faiss python=3.6 
-python -m ipykernel install --user --name faiss```
+python -m ipykernel install --user --name faiss
+```
 
 ## Datasets
 - waseem dataset (label_map = {'racism':0, 'sexism':1, 'both':2, 'neither':3})
