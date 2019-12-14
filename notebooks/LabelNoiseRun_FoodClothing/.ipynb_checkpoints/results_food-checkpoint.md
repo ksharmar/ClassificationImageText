@@ -159,7 +159,7 @@ f1_metrics (accuracy/micro) 0.9028716216216216
 f1_metrics (macro/unweighted mean) 0.8259907193346343
 f1_metrics (weighted mean of f1) 0.8969126190301271
 
-
+0.3
 INFO:tensorflow:acc = 0.9043496621621622 err = 0.09565033783783783
 INFO:tensorflow:recall = 0.6746724890829694
 INFO:tensorflow:precision = 0.7994825355756792
@@ -170,3 +170,27 @@ f1_metrics (noise) 0.7317939609236234
 f1_metrics (accuracy/micro) 0.9043496621621622
 f1_metrics (macro/unweighted mean) 0.8367950917299601
 f1_metrics (weighted mean of f1) 0.9011792310588457
+
+0.4 ================================================================================== Report
+INFO:tensorflow:acc = 0.9035050675675675 err = 0.09649493243243246
+INFO:tensorflow:recall = 0.7106986899563319
+INFO:tensorflow:precision = 0.7722419928825622
+INFO:tensorflow:f1_noise = 0.7401932916429791
+INFO:tensorflow:avg acc (cls) = 0.9033394301077479 avg error (cls) = 0.09666056989225214
+f1_metrics (clean) 0.9407493841566187
+f1_metrics (noise) 0.7401932916429791
+f1_metrics (accuracy/micro) 0.9035050675675675
+f1_metrics (macro/unweighted mean) 0.8404713378997989 [best]
+f1_metrics (weighted mean of f1) 0.9019593966687611
+
+0.5
+INFO:tensorflow:acc = 0.9003378378378378 err = 0.09966216216216217
+INFO:tensorflow:recall = 0.7390829694323144
+INFO:tensorflow:precision = 0.743956043956044
+INFO:tensorflow:f1_noise = 0.7415115005476451
+INFO:tensorflow:avg acc (cls) = 0.900438033565012 avg error (cls) = 0.09956196643498805
+f1_metrics (clean) 0.93826837562124
+f1_metrics (noise) 0.7415115005476451
+f1_metrics (accuracy/micro) 0.9003378378378378
+f1_metrics (macro/unweighted mean) 0.8398899380844426
+f1_metrics (weighted mean of f1) 0.9002132029929857

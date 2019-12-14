@@ -124,9 +124,7 @@ def get_dataloaders(args):
     class_names = image_datasets['train'].classes
 
     return dataloaders, dataset_sizes, class_names, feat_extraction_data_loader
- 
-    
-    
+
     
 def train_model(dataloaders, dataset_sizes, model, criterion, optimizer, scheduler,
                 num_epochs, device, save_model_path):
@@ -260,6 +258,20 @@ def get_vector(feat_extraction_data_loader, model, save_emb_path, save_img_path,
     print("saved embs")
     
     
+def get_logits(feat_extraction_data_loader, model, device, save_logits_path):
+    model.eval() 
+    f = open(save_logits_path, 'w')
+    with torch.no_grad():
+        for i, (inputs, labels, img_paths) in enumerate(feat_extraction_data_loader):
+            inputs = inputs.to(device)
+            outputs = model(inputs)
+            if i % 1000 == 0:
+                print("done extract at i", i)
+            for line in np.matrix(outputs.cpu().numpy()):
+                np.savetxt(f, line, fmt='%.3f')
+    print('saved logits')
+
+    
 def main():
     parser = argparse.ArgumentParser(description='.')
     parser.add_argument('--batch_size', type=int, help='batch size', default=64)
@@ -268,14 +280,17 @@ def main():
     # this classname list is provided if string type labels in image list is given
     parser.add_argument('--classname_list', type=str, help='class names list', default='')
     
+    # train data : train (run cases)
     parser.add_argument('--tr_data_dir', type=str, help='train data dir', default='')
     parser.add_argument('--tr_img_dir', type=str, help='train image dir', default='')
     parser.add_argument('--tr_img_list', type=str, help='train image list', default='')
     
+    # val data (clean classification test set) : train, val (run cases)
     parser.add_argument('--va_data_dir', type=str, help='va data dir', default='')
     parser.add_argument('--va_img_dir', type=str, help='va image dir', default='')
     parser.add_argument('--va_img_list', type=str, help='va image list', default='')
     
+    # feat extraction data : feat_ext, logit_ext (run cases)
     parser.add_argument('--ftext_data_dir', type=str, help='feat ext data dir', default='')
     parser.add_argument('--ftext_img_dir', type=str, help='feat ext image dir', default='')
     parser.add_argument('--ftext_img_list', type=str, help='feat ext image list', default='')
@@ -292,7 +307,7 @@ def main():
     parser.add_argument('--stepsize', type=float, help='LR sch: step size', default=7)
     
     parser.add_argument('--resnet', type=int, help='resnet layers', default=50)
-    parser.add_argument('--run_case', type=str, help='feat_ext|train|val', default='')
+    parser.add_argument('--run_case', type=str, help='logits_ext|feat_ext|train|val', default='')
     parser.add_argument('--saved_model_name', type=str, help='saved model name', default='')
         
     args = parser.parse_args()
@@ -304,6 +319,7 @@ def main():
     save_model_path = args.model_dir + '/model.pt'
     save_emb_path = args.model_dir + '/extracted_emb.txt'
     save_img_path = args.model_dir + '/extracted_imgpaths.txt'
+    save_logits_path = args.model_dir + '/val_logits.txt'
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
     
     print('..start program..{}'.format(args.run_case))
@@ -342,7 +358,10 @@ def main():
         model_ft = torch.load(args.model_dir + '/' + args.saved_model_name)
         model_ft = model_ft.to(device)
         get_vector(feat_extraction_data_loader, model_ft, save_emb_path, save_img_path, device, args.batch_size)
-
+    elif args.run_case == 'logits_ext':
+        model_ft = torch.load(args.model_dir + '/' + args.saved_model_name)
+        model_ft = model_ft.to(device)
+        get_logits(feat_extraction_data_loader, model_ft, device, save_logits_path)     
     print("..end program..")
     
 
