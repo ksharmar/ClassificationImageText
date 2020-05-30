@@ -1,3 +1,17 @@
+python drae.py --input_tsv '../trained_models/waseem/cleannet_all.tsv' \
+--val_tsv '../trained_models/waseem/cleannet_val.tsv' \
+--save_file './save_test.txt'
+
+python drae.py --input_tsv '../trained_models/food101n_20e/cleannet_all.tsv' \
+--val_tsv '../trained_models/food101n_20e/cleannet_val.tsv' \
+--save_file '../trained_models/food101n_20e/drae_all_preds.txt'
+
+
+python drae.py --input_tsv '../trained_models/clothing1m_10e/cleannet_all.tsv' \
+--val_tsv '../trained_models/clothing1m_10e/cleannet_val.tsv' \
+--save_file '../trained_models/clothing1m_10e/drae_all_preds.txt'
+
+
 # ClassificationImageText 
 
 ## Implementations
@@ -9,7 +23,6 @@
 ## Todo
 
 - data syn noise add (uni, nonuni, diff noise rates)
-- ours (iterative, checkL2norm on 768d vectors)
 - Implement and run DRAE
 - All methods for text (Waseem, Synthetic) datasets
 

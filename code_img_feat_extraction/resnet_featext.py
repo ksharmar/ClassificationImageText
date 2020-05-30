@@ -307,9 +307,13 @@ def main():
     parser.add_argument('--stepsize', type=float, help='LR sch: step size', default=7)
     
     parser.add_argument('--resnet', type=int, help='resnet layers', default=50)
-    parser.add_argument('--run_case', type=str, help='logits_ext|feat_ext|train|val', default='')
+    parser.add_argument('--run_case', type=str, help='logits_ext|feat_ext|train|val|finetune', default='')
     parser.add_argument('--saved_model_name', type=str, help='saved model name', default='')
-        
+    
+    # FOR FINETUNING: LOAD MODEL DIR IS DIFF FROM SAVE DIR
+    parser.add_argument('--load_model_dir', type=str, help='load model dir', default='')
+    parser.add_argument('--load_model_name', type=str, help='load model name', default='')
+    
     args = parser.parse_args()
     print(args)
     if not os.path.isdir(args.model_dir):
@@ -349,6 +353,20 @@ def main():
                                args.num_epochs, device, save_model_path)
         torch.save(model_ft, save_model_path)
         get_vector(feat_extraction_data_loader, model_ft, save_emb_path, save_img_path, device, args.batch_size)
+    elif args.run_case == 'finetune':
+        model_ft = torch.load(args.load_model_dir + '/' + args.load_model_name)
+        model_ft = model_ft.to(device)
+        criterion = nn.CrossEntropyLoss()
+#         if args.opt == 'sgd':
+#             optimizer_ft = optim.SGD(model_ft.parameters(), lr=args.lr, momentum=args.momentum)
+#             exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=args.stepsize, gamma=args.gamma)
+#         else:
+#             optimizer_ft = optim.Adam(model_ft.parameters(), lr=args.lr, weight_decay=0.99)
+#             exp_lr_scheduler = None
+        val_only(dataloaders['val'], dataset_sizes['val'], model_ft, criterion, device)
+#         model_ft = train_model(dataloaders, dataset_sizes, model_ft, criterion, optimizer_ft, exp_lr_scheduler,
+#                                args.num_epochs, device, save_model_path)
+#         torch.save(model_ft, save_model_path)
     elif args.run_case == 'val':
         model_ft = torch.load(args.model_dir + '/' + args.saved_model_name)
         model_ft = model_ft.to(device)
