@@ -1,17 +1,3 @@
-python drae.py --input_tsv '../trained_models/waseem/cleannet_all.tsv' \
---val_tsv '../trained_models/waseem/cleannet_val.tsv' \
---save_file './save_test.txt'
-
-python drae.py --input_tsv '../trained_models/food101n_20e/cleannet_all.tsv' \
---val_tsv '../trained_models/food101n_20e/cleannet_val.tsv' \
---save_file '../trained_models/food101n_20e/drae_all_preds.txt'
-
-
-python drae.py --input_tsv '../trained_models/clothing1m_10e/cleannet_all.tsv' \
---val_tsv '../trained_models/clothing1m_10e/cleannet_val.tsv' \
---save_file '../trained_models/clothing1m_10e/drae_all_preds.txt'
-
-
 # ClassificationImageText 
 
 ## Implementations
@@ -19,13 +5,6 @@ python drae.py --input_tsv '../trained_models/clothing1m_10e/cleannet_all.tsv' \
 - Clean-net (label noise)
 - Code for Bert (text feature extraction, classification, tweet extraction from tweepy)
 - Code for Resnet50 (image feature extraction, classification)
-
-## Todo
-
-- data syn noise add (uni, nonuni, diff noise rates)
-- Implement and run DRAE
-- All methods for text (Waseem, Synthetic) datasets
-
 
 ## Environments
 
@@ -54,3 +33,8 @@ python -m ipykernel install --user --name faiss
 
 ## Datasets
 - waseem dataset (label_map = {'racism':0, 'sexism':1, 'both':2, 'neither':3})
+
+
+## Experiments ECCV (NoiseRank with Prototypes)
+- /home/krsharma/workspace/ClassificationImageText/trained_models/food101n_20e/robustnoiserank
+- /home/krsharma/workspace/ClassificationImageText/trained_models/clothing1m_10e/robustnoiserank
